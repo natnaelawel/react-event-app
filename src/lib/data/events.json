@@ -56,5 +56,13 @@
     "start": 1699765020000,
     "end": 1699822800000,
     "userId": "3290ad5f-f2e9-4aeb-aa6f-4e4e7e0b7b9e"
+  },
+  {
+    "id": "7889bf5e-aad4-4825-bc70-99bd440874c1",
+    "title": "Group Discussion",
+    "allDay": false,
+    "start": 1701032400000,
+    "end": 1701118800000,
+    "userId": "3290ad5f-f2e9-4aeb-aa6f-4e4e7e0b7b9e"
   }
 ]

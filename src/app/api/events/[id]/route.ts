@@ -20,7 +20,9 @@ export async function GET(
   const from = searchParams.get("from");
   const to = searchParams.get("to");
 
-  const eventsData = readFileSync("./src/lib/data/events.json", "utf8");
+  const FILE_DIRECTORY_PATH =
+    process.env.FILE_DIRECTORY_PATH || "./src/lib/data";
+  const eventsData = readFileSync(`${FILE_DIRECTORY_PATH}/events.json`, "utf8");
   const events = JSON.parse(eventsData);
 
   if (id) {
@@ -83,7 +85,13 @@ export async function PUT(
 
   try {
     // first find the event
-    const eventsData = readFileSync("./src/lib/data/events.json", "utf8");
+    const FILE_DIRECTORY_PATH =
+      process.env.FILE_DIRECTORY_PATH || "./src/lib/data";
+
+    const eventsData = readFileSync(
+      `${FILE_DIRECTORY_PATH}/events.json`,
+      "utf8"
+    );
     const events = JSON.parse(eventsData);
 
     const event = events.find((event: EventType) => event.id === id);
@@ -113,7 +121,7 @@ export async function PUT(
     });
 
     await writeFileSync(
-      "./src/lib/data/events.json",
+      `${FILE_DIRECTORY_PATH}/events.json`,
       JSON.stringify(updatedEvents, null, 2)
     );
 
@@ -135,13 +143,19 @@ export async function DELETE(
   { params: { id } }: { params: { id: string } }
 ) {
   try {
-    const eventsData = readFileSync("./src/lib/data/events.json", "utf8");
+    const FILE_DIRECTORY_PATH =
+      process.env.FILE_DIRECTORY_PATH || "./src/lib/data";
+
+    const eventsData = readFileSync(
+      `${FILE_DIRECTORY_PATH}/events.json`,
+      "utf8"
+    );
     const events = JSON.parse(eventsData);
 
     const filteredEvents = events.filter((event: EventType) => event.id !== id);
 
     await writeFileSync(
-      "./src/lib/data/events.json",
+      `${FILE_DIRECTORY_PATH}/events.json`,
       JSON.stringify(filteredEvents, null, 2)
     );
 

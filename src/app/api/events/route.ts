@@ -12,13 +12,15 @@ type EventType = {
 };
 
 export async function GET(request: Request) {
+  const FILE_DIRECTORY_PATH =
+    process.env.FILE_DIRECTORY_PATH || "./src/lib/data";
   const { searchParams } = new URL(request.url);
   const id = searchParams.get("id");
   const userId = searchParams.get("userId");
   const from = searchParams.get("from");
   const to = searchParams.get("to");
 
-  const eventsData = readFileSync("./src/lib/data/events.json", "utf8");
+  const eventsData = readFileSync(`${FILE_DIRECTORY_PATH}/events.json`, "utf8");
   const events = JSON.parse(eventsData);
   if (id) {
     const eventsRes = events.filter((event: EventType) => event.id === id);
@@ -97,13 +99,18 @@ export async function POST(request: Request) {
     userId,
   };
   try {
-    const eventsData = readFileSync("./src/lib/data/events.json", "utf8");
+    const FILE_DIRECTORY_PATH =
+      process.env.FILE_DIRECTORY_PATH || "./src/lib/data";
+    const eventsData = readFileSync(
+      `${FILE_DIRECTORY_PATH}/events.json`,
+      "utf8"
+    );
     const events = JSON.parse(eventsData);
 
     events.push(newEvent);
 
     await writeFileSync(
-      "./src/lib/data/events.json",
+      `${FILE_DIRECTORY_PATH}/events.json`,
       JSON.stringify(events, null, 2)
     );
 
@@ -128,7 +135,12 @@ export async function PUT(request: Request) {
 
   try {
     // first find the event
-    const eventsData = readFileSync("./src/lib/data/events.json", "utf8");
+    const FILE_DIRECTORY_PATH =
+      process.env.FILE_DIRECTORY_PATH || "./src/lib/data";
+    const eventsData = readFileSync(
+      `${FILE_DIRECTORY_PATH}/events.json`,
+      "utf8"
+    );
     const events = JSON.parse(eventsData);
 
     const event = events.find((event: EventType) => event.id === id);
@@ -158,7 +170,7 @@ export async function PUT(request: Request) {
     });
 
     await writeFileSync(
-      "./src/lib/data/events.json",
+      `${FILE_DIRECTORY_PATH}/events.json`,
       JSON.stringify(updatedEvents, null, 2)
     );
 
@@ -180,13 +192,14 @@ export async function DELETE(request: Request) {
   const id = searchParams.get("id");
 
   try {
-    const eventsData = readFileSync("./src/lib/data/events.json", "utf8");
+    const FILE_DIRECTORY_PATH = process.env.FILE_DIRECTORY_PATH || "./src/lib/data";
+    const eventsData = readFileSync(`${FILE_DIRECTORY_PATH}/events.json`, "utf8");
     const events = JSON.parse(eventsData);
 
     const filteredEvents = events.filter((event: EventType) => event.id !== id);
 
     await writeFileSync(
-      "./src/lib/data/events.json",
+      `${FILE_DIRECTORY_PATH}/events.json`,
       JSON.stringify(filteredEvents, null, 2)
     );
 

@@ -239,7 +239,7 @@ const CalendarComponent = ({ events }: Props) => {
                                         eventResize={handleEventResize}
                                         events={events}
                                         headerToolbar={false}
-                                        height={500}
+                                        height={800}
                                         initialDate={date}
                                         initialView={view}
                                         plugins={[

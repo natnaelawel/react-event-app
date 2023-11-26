@@ -1,0 +1,14 @@
+[
+  {
+    "id": "3290ad5f-f2e9-4aeb-aa6f-4e4e7e0b7b9d",
+    "name": "John Doe",
+    "email": "john@email.com",
+    "password": "password"
+  },
+  {
+    "id": "3290ad5f-f2e9-4aeb-aa6f-4e4e7e0b7b9e",
+    "name": "Jane Doe",
+    "email": "jane@email.com",
+    "password": "password"
+  }
+]

@@ -3,7 +3,7 @@ import { useAppDispatch } from '@/hooks/redux'
 import useUsers from '@/hooks/users/useUsers'
 import { UserState } from '@/store/slices/user/userSlice'
 import { AuthThunks } from '@/store/thunks/auth'
-import { Button, Card, CardContent, CardHeader, CircularProgress, Container, IconButton, Link, List, ListItem, ListItemSecondaryAction, ListItemText, SvgIcon, Typography } from '@mui/material'
+import { Button, Card, CardContent, CardHeader, CircularProgress, Container, IconButton, Link, List, ListItem, ListItemSecondaryAction, ListItemText, Stack, SvgIcon, Typography } from '@mui/material'
 import { useRouter } from 'next/navigation'
 import { useCallback } from 'react'
 
@@ -35,7 +35,12 @@ export default function Home() {
             <CardContent >
               <List>
                 {
-                  users.length == 0 ? <CircularProgress /> : users.map((user) => {
+                  users.length == 0 ? <Stack
+                    direction="row"
+                    justifyContent={"center"}
+                  >
+                    <CircularProgress />
+                  </Stack> : users.length > 0 ? users.map((user) => {
                     return (
                       <ListItem
                         key={user.id}
@@ -68,7 +73,7 @@ export default function Home() {
                           alignItems: "center",
                         }} >
                           <Typography variant="body2">
-                            Login as this user, and view user's events
+                            View user&apos;s events
                           </Typography>
                           <Button
                             variant="outlined"
@@ -76,12 +81,15 @@ export default function Home() {
                               handleLogin(user);
                             }}
                           >
-                            Login
+                            View
                           </Button>
                         </ListItemSecondaryAction>
                       </ListItem>
                     )
-                  })
+                  }) :
+                    <Typography>
+                      No users
+                    </Typography>
                 }
               </List>
             </CardContent>

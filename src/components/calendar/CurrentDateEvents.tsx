@@ -36,7 +36,7 @@ const CurrentDateEvents = (props: Props) => {
         }}
             maxWidth="md" >
             <Card>
-                <CardHeader title={<Typography color={"black"}>Today's Events</Typography>} />
+                <CardHeader title={<Typography color={"black"}>Today&apos;s Events</Typography>} />
                 <CardContent >
                     <List>
                         {
@@ -89,6 +89,10 @@ const CurrentDateEvents = (props: Props) => {
                                                     <IconButton
                                                         edge="end"
                                                         onClick={() => {
+                                                            const startDate = format(new Date(format(new Date(event.start), "yyyy-MM-dd")), "yyyy-MM-dd")
+                                                            const endDate = format(new Date(new Date(
+                                                                format(new Date(event.end), "yyyy-MM-dd")
+                                                            ).getTime() + 24 * 60 * 60 * 1000 - 1), "yyyy-MM-dd") // end of the day
                                                             router.push(`/calendar/${startDate}&${endDate}`)
                                                         }}
                                                     >

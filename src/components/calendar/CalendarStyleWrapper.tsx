@@ -32,7 +32,6 @@ export const CalendarStyleWrapper = styled('div')(({ theme }) => ({
   },
   '& .fc-daygrid-event': {
     borderRadius: theme.shape.borderRadius,
-    padding: '0px 4px',
     fontSize: theme.typography.subtitle2.fontSize,
     fontWeight: theme.typography.subtitle2.fontWeight,
     lineHeight: theme.typography.subtitle2.lineHeight

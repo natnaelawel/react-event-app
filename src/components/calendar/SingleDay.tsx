@@ -4,8 +4,9 @@ import React from 'react'
 import { Box, Stack, Container, Card, CardHeader, Typography, CardContent, List, ListItem, ListItemText, Link, ListItemSecondaryAction, IconButton, SvgIcon } from '@mui/material';
 import { CiTrash } from "react-icons/ci";
 import { format } from 'date-fns';
-import { useGetEventsQuery } from '@/services/events';
+import { useDeleteEventMutation, useGetEventsQuery } from '@/services/events';
 import { EventState } from '@/types/events';
+import toast from 'react-hot-toast';
 
 type Props = {
     startDate: number;
@@ -25,6 +26,18 @@ const SingleDayEventsComponent = (props: Props) => {
             refetchOnMountOrArgChange: true,
         }
     );
+    const [deleteEvent] = useDeleteEventMutation();
+    const handleDelete = async (eventId: string) => {
+        try {
+            await deleteEvent({
+                eventId
+            }).unwrap();
+            toast.success("Event deleted successfully");
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return (
 
         <Container sx={{
@@ -86,11 +99,11 @@ const SingleDayEventsComponent = (props: Props) => {
                                                 <IconButton
                                                     edge="end"
                                                     onClick={() => {
+                                                        handleDelete(event.id);
                                                     }}
                                                 >
                                                     <SvgIcon>
                                                         <CiTrash />
-
                                                     </SvgIcon>
                                                 </IconButton>
                                             </ListItemSecondaryAction>

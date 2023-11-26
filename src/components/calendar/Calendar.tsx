@@ -162,6 +162,35 @@ const CalendarComponent = ({ events }: Props) => {
         }
     }, [dispatch]);
 
+    const eventContent = (arg: any) => {
+        const colors = ['#FF5733', '#33FF57', '#5733FF', '#FF33EC', '#33C7FF']; // Add more colors if needed
+        const index = arg.event.start.getDay() % colors.length;
+        return (
+            <Stack
+                className="custom-event"
+                direction={"row"}
+                alignItems={"center"}
+                flexWrap={"wrap"}
+                sx={{
+                    backgroundColor: colors[index],
+                    color: "white",
+                    borderRadius: "5px",
+                    padding: 1,
+                    wordWrap: "break-word",
+                }}
+            >
+                <span>
+                    {arg.timeText}
+                </span>
+                {/* <br /> */}
+                <span>
+                    {arg.event.title}
+                </span>
+            </Stack>
+        );
+    };
+
+
     return (
         <LocalizationProvider dateAdapter={AdapterDateFns}>
             <Box
@@ -196,6 +225,9 @@ const CalendarComponent = ({ events }: Props) => {
                             <Card>
                                 <CalendarStyleWrapper>
                                     <Calendar
+                                        ref={calendarRef}
+                                        eventClassNames={["custom-event"]}
+                                        eventContent={eventContent}
                                         allDayMaintainDuration
                                         dayMaxEventRows={3}
                                         droppable
@@ -207,7 +239,7 @@ const CalendarComponent = ({ events }: Props) => {
                                         eventResize={handleEventResize}
                                         events={events}
                                         headerToolbar={false}
-                                        height={800}
+                                        height={500}
                                         initialDate={date}
                                         initialView={view}
                                         plugins={[
@@ -217,7 +249,6 @@ const CalendarComponent = ({ events }: Props) => {
                                             timeGridPlugin,
                                             timelinePlugin
                                         ]}
-                                        ref={calendarRef}
                                         rerenderDelay={10}
                                         select={handleRangeSelect}
                                         selectable

@@ -8,7 +8,7 @@ import React from 'react'
 
 type Props = {}
 
-const page = (props: Props) => {
+const Page = (props: Props) => {
     const currentUser = useAuth()
     const { data, isFetching, isError } = useGetEventsQuery(
         { userId: currentUser?.id }, {
@@ -37,4 +37,4 @@ const page = (props: Props) => {
     )
 }
 
-export default page
+export default Page

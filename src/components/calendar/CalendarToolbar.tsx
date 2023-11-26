@@ -33,17 +33,12 @@ const viewOptions = [
         label: 'Day',
         value: 'timeGridDay'
     },
-    {
-        label: 'Agenda',
-        value: 'listWeek'
-    }
 ];
 
 export enum View {
     dayGridMonth = 'dayGridMonth',
     timeGridWeek = 'timeGridWeek',
     timeGridDay = 'timeGridDay',
-    listWeek = 'listWeek'
 }
 
 type CalendarToolbarProps = {
@@ -93,24 +88,9 @@ export const CalendarToolbar = (props: CalendarToolbarProps) => {
                 xs: 'column',
                 md: 'row'
             }}
-            spacing={3}
-            sx={{ px: 3 }}
-            {...other}>
-            <Stack
-                alignItems="center"
-                direction="row"
-                spacing={1}
-            >
-                <Typography variant="h5">
-                    {dateMonth}
-                </Typography>
-                <Typography
-                    sx={{ fontWeight: 400 }}
-                    variant="h5"
-                >
-                    {dateDay}
-                </Typography>
-            </Stack>
+            sx={{ px: 3, py: 1 }}
+            {...other}
+        >
             <Stack
                 alignItems="center"
                 direction="row"
@@ -126,6 +106,36 @@ export const CalendarToolbar = (props: CalendarToolbarProps) => {
                         <MdArrowForwardIos />
                     </SvgIcon>
                 </IconButton>
+
+                <Button
+                    sx={{
+                        width: {
+                            xs: '100%',
+                            md: 'auto'
+                        }
+                    }}
+                    variant='outlined' onClick={onDateToday}>
+                    Today
+                </Button>
+            </Stack>
+            <Stack
+                direction={"row"} alignItems={"center"} spacing={1}>
+                <Typography variant="h5">
+                    {dateMonth}
+                </Typography>
+
+                <Typography
+                    sx={{ fontWeight: 400 }}
+                    variant="h5"
+                >
+                    {dateDay}
+                </Typography>
+            </Stack>
+            <Stack
+                alignItems="center"
+                direction="row"
+                spacing={1}
+            >
                 <TextField
                     label="View"
                     name="view"

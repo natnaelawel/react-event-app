@@ -2,7 +2,7 @@
 
 import { useCallback, useMemo } from 'react';
 import toast from 'react-hot-toast';
-import { addMinutes } from 'date-fns';
+import { addMinutes, format } from 'date-fns';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { CiTrash } from "react-icons/ci";
@@ -23,11 +23,10 @@ import {
     Typography
 } from '@mui/material';
 import { DateTimePicker } from '@mui/x-date-pickers';
-import { EventState } from '@/store/slices/calendar/calendarSlice';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
-import { calendarThunks } from '@/store/thunks/calendar';
-import useUsers from '@/hooks/users/useUsers';
-
+import { useRouter } from 'next/navigation';
+import { useCreateEventMutation, useDeleteEventMutation, useUpdateEventMutation } from '@/services/events';
+import { EventState } from '@/types/events';
 const useInitialValues = (event: any, range: any) => {
     return useMemo(() => {
         if (event) {
@@ -104,11 +103,15 @@ export const EventModal = (props: Props) => {
     const { user: currentUser } = useAppSelector(
         (state) => state.auth
     );
+    const [updateEvent, { isLoading: isUpdating }] = useUpdateEventMutation();
+    const [createEvent, { isLoading: isCreating }] = useCreateEventMutation();
+    const [deleteEvent, { isLoading: isDeleting }] = useDeleteEventMutation();
     const formik = useFormik({
         enableReinitialize: true,
         initialValues,
         validationSchema,
         onSubmit: async (values, helpers) => {
+            helpers.setSubmitting(true);
             try {
                 const data = {
                     allDay: values.allDay,
@@ -120,17 +123,22 @@ export const EventModal = (props: Props) => {
                 };
 
                 if (action === 'update') {
-                    await dispatch(calendarThunks.updateEvent({
+
+                    await updateEvent({
                         eventId: event!.id,
                         update: {
                             ...data,
                         }
-                    }));
+                    }).unwrap();
                     toast.success('Event updated');
                 } else {
-                    await dispatch(calendarThunks.createEvent(data));
+                    await createEvent(
+                        data
+                    ).unwrap();
                     toast.success('Event added');
                 }
+                helpers.setSubmitting(false);
+                helpers.resetForm();
 
                 if (action === 'update') {
                     onEditComplete?.();
@@ -170,14 +178,17 @@ export const EventModal = (props: Props) => {
         }
 
         try {
-            await dispatch(calendarThunks.deleteEvent({
+            await deleteEvent({
                 eventId: event.id
-            }));
+            }).unwrap();
+            toast.success('Event deleted');
             onDeleteComplete?.();
         } catch (err) {
             console.error(err);
         }
     }, [dispatch, event, onDeleteComplete]);
+
+    const router = useRouter();
 
     return (
         <Dialog
@@ -188,15 +199,30 @@ export const EventModal = (props: Props) => {
         >
             <form onSubmit={formik.handleSubmit}>
                 <Box sx={{ p: 3 }}>
-                    <Typography
-                        align="center"
-                        gutterBottom
-                        variant="h5"
+                    <Stack
+                        alignItems="center"
+                        direction="row"
+                        justifyContent="space-between"
+                        spacing={2}
                     >
-                        {event
-                            ? 'Edit Event'
-                            : 'Add Event'}
-                    </Typography>
+
+                        <Typography
+                            align="center"
+                            gutterBottom
+                            variant="h5"
+                        >
+                            {event
+                                ? 'Edit Event'
+                                : 'Add Event'}
+                        </Typography>
+
+                        <Button variant='contained' onClick={() => {
+                            // onClose?.();
+                            router.push(`/calendar/${format(new Date(formik.values.start), "yyyy-MM-dd")}&${format(new Date(formik.values.end), "yyyy-MM-dd")}`);
+                        }}>
+                            Go to events
+                        </Button>
+                    </Stack>
                 </Box>
                 <Stack
                     spacing={2}

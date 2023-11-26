@@ -1,4 +1,4 @@
-import { EventState } from "@/store/slices/calendar/calendarSlice";
+import { EventState } from "@/types/events";
 import { useMemo } from "react";
 
 type DialogData = {

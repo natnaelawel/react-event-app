@@ -1,10 +1,10 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import calendarReducer from "./slices/calendar/calendarSlice";
 import usersReducer from "./slices/user/userSlice";
 import authReducer from "./slices/auth/authSlice";
+import { eventsApi } from "@/services/events";
 
 export const rootReducer = combineReducers({
-  calendar: calendarReducer,
-  users: usersReducer,
   auth: authReducer,
+  users: usersReducer,
+  [eventsApi.reducerPath]: eventsApi.reducer,
 });

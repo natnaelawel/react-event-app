@@ -1,31 +1,37 @@
 'use client';
 
-import CalendarComponent from '@/components/calendar/Calendar'
 import SingleDayEventsComponent from '@/components/calendar/SingleDay';
-import useUsers from '@/hooks/users/useUsers';
-import { Box, Stack, Container, CircularProgress } from '@mui/material';
-import Head from 'next/head'
+import useAuth from '@/hooks/auth/useAuth';
+import { Box, CircularProgress, Stack } from '@mui/material';
 import { usePathname } from 'next/navigation';
 import React from 'react'
 
-type Props = {}
+type Props = {};
 
-const page = (props: Props) => {
+
+const DateSpanPage = (props: Props) => {
     const pathname = usePathname();
+    const currentUser = useAuth()
     const [startDateStr, endDateStr] = pathname.split('/').slice(-1)[0].split('&');
-    const startDate = new Date(startDateStr).getTime();
-    const endDate = new Date(endDateStr).getTime();
-    const users = useUsers();
+
+    const startDate = new Date(startDateStr).getTime(); // start of the day
+    const endDate = new Date(new Date(endDateStr).getTime() + 24 * 60 * 60 * 1000 - 1).getTime(); // end of the day
 
     return (
-        <div>
+        <Box
+            display={"flex"}
+            sx={{
+                minHeight: "80vh",
+                width: "100%",
+                justifyContent: "center"
+            }} >
             {
-                users.length > 0 ? (
-                    <SingleDayEventsComponent startDate={startDate} endDate={endDate} userId={users[0]?.id} />
+                currentUser ? (
+                    <SingleDayEventsComponent startDate={startDate} endDate={endDate} userId={currentUser.id} />
                 ) : <CircularProgress />
             }
-        </div>
+        </Box>
     );
 }
 
-export default page
+export default DateSpanPage

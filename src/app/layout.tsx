@@ -4,13 +4,13 @@ import { ThemeProvider, alpha } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Inter } from 'next/font/google'
 import { Provider } from 'react-redux'
-import { store } from '@/store'
+import { setupStore } from '@/store'
 import theme from '@/utils/theme';
-import { Toaster } from 'react-hot-toast';
 import ToasterComponent from '@/components/common/Toaster';
 
 const inter = Inter({ subsets: ['latin'] })
 
+const store = setupStore();
 
 export default function RootLayout({
   children,
@@ -25,7 +25,7 @@ export default function RootLayout({
             <CssBaseline />
             {children}
 
-           <ToasterComponent/>
+            <ToasterComponent />
           </ThemeProvider>
         </Provider>
       </body>

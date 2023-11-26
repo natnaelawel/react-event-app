@@ -23,7 +23,6 @@ export async function GET(
   const eventsData = readFileSync("./src/lib/data/events.json", "utf8");
   const events = JSON.parse(eventsData);
 
-  console.log("from and to and userId", from, to, userId);
   if (id) {
     const eventsRes = events.filter((event: EventType) => event.id === id);
     return Response.json({
@@ -131,10 +130,10 @@ export async function PUT(
   }
 }
 
-export async function DELETE(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const id = searchParams.get("id");
-
+export async function DELETE(
+  request: Request,
+  { params: { id } }: { params: { id: string } }
+) {
   try {
     const eventsData = readFileSync("./src/lib/data/events.json", "utf8");
     const events = JSON.parse(eventsData);

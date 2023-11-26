@@ -6,9 +6,14 @@ type AuthState = {
   token: string | null;
 };
 
+const initialState: AuthState = {
+  user: null,
+  token: null,
+};
+
 const authSlice = createSlice({
   name: "auth",
-  initialState: { user: null, token: null } as AuthState,
+  initialState,
   reducers: {
     setAuth(state, action) {
       state.user = action.payload.user;

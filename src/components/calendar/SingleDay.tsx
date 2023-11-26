@@ -1,11 +1,11 @@
 'use client';
 
 import React from 'react'
-import useEvents from '@/hooks/events/useEvents';
-import useUsers from '@/hooks/users/useUsers';
 import { Box, Stack, Container, Card, CardHeader, Typography, CardContent, List, ListItem, ListItemText, Link, ListItemSecondaryAction, IconButton, SvgIcon } from '@mui/material';
 import { CiTrash } from "react-icons/ci";
 import { format } from 'date-fns';
+import { useGetEventsQuery } from '@/services/events';
+import { EventState } from '@/types/events';
 
 type Props = {
     startDate: number;
@@ -15,15 +15,16 @@ type Props = {
 
 const SingleDayEventsComponent = (props: Props) => {
     const { startDate, endDate, userId } = props;
-    console.log(startDate, endDate, userId, "startDate, endDate, userId")
-    const events = useEvents({
-        from: startDate,
-        to: endDate,
-        userId: userId
-    });
-
-    console.log(events, startDate, endDate, "events")
-
+    const { data, isFetching, isError } = useGetEventsQuery(
+        {
+            from: startDate,
+            to: endDate,
+            userId: userId
+        },
+        {
+            refetchOnMountOrArgChange: true,
+        }
+    );
     return (
 
         <Container sx={{
@@ -35,80 +36,78 @@ const SingleDayEventsComponent = (props: Props) => {
 
         >
             <Card>
-                <CardHeader title={<Typography color={"black"}>Current Events</Typography>} />
+                <CardHeader title={<Typography variant='h5' color={"black"}>Events</Typography>} />
                 <CardContent >
                     <List>
                         {
-                            events.map((event) => {
-                                return (
-                                    <ListItem
-                                        key={event.id}
-                                        onClick={() => {
-                                        }}
-                                        divider
-                                    >
-                                        <ListItemText
-                                            disableTypography
-                                            primary={(
-                                                <Link
-                                                    color="text.primary"
-                                                    noWrap
-                                                    sx={{ cursor: 'pointer' }}
-                                                    underline="none"
-                                                    variant="subtitle2"
-                                                >
-                                                    {event.title}
-                                                </Link>
-                                            )}
-                                            secondary={(
-                                                <Stack direction={"column"} px={2}>
-                                                    <span>
-                                                        {event.description}
-                                                    </span>
-                                                    <Stack >
-                                                        <Typography variant={"caption"}>
-                                                            From:  {format(new Date(event.start), "MM-dd HH:mm")}
-                                                        </Typography>
-                                                        <Typography variant={"caption"}>
-                                                            To: {format(new Date(event.end), "MM-dd HH:mm")}
-                                                        </Typography>
-                                                    </Stack>
-                                                </Stack>
-                                            )}
-                                        />
-                                        <ListItemSecondaryAction >
-                                            <IconButton
-                                                edge="end"
-                                                onClick={() => {
-                                                }}
-                                            >
-                                                <SvgIcon>
-                                                    <CiTrash />
+                            isFetching ? <Typography>loading...</Typography> :
+                                data.data.length > 0 ? data.data.map((event: EventState) => {
+                                    return (
+                                        <ListItem
+                                            key={event.id}
+                                            onClick={() => {
+                                            }}
+                                            divider
+                                        >
+                                            <ListItemText
+                                                disableTypography
+                                                primary={(
+                                                    <Link
+                                                        color="text.primary"
+                                                        noWrap
+                                                        sx={{ cursor: 'pointer' }}
+                                                        underline="none"
+                                                        variant="subtitle2"
+                                                    >
+                                                        {event.title}
+                                                    </Link>
+                                                )}
+                                                secondary={(
+                                                    <Stack direction={"column"} px={2}>
+                                                        <span>
+                                                            {event.description}
+                                                        </span>
+                                                        <Stack >
+                                                            <Typography variant={"caption"}>
+                                                                From:  {format(new Date(event.start), "yyyy-MM-dd HH:mm aa")}
+                                                            </Typography>
+                                                            <Typography variant={"caption"}>
+                                                                To: {format(new Date(event.end), "yyyy-MM-dd HH:mm aa")}
+                                                            </Typography>
+                                                            <Typography variant={"caption"}>
+                                                                All day: {event.allDay ? "Yes" : "No"}
+                                                            </Typography>
 
-                                                </SvgIcon>
-                                            </IconButton>
-                                        </ListItemSecondaryAction>
-                                    </ListItem>
-                                )
-                            })
+                                                        </Stack>
+                                                    </Stack>
+                                                )}
+                                            />
+                                            <ListItemSecondaryAction >
+                                                <IconButton
+                                                    edge="end"
+                                                    onClick={() => {
+                                                    }}
+                                                >
+                                                    <SvgIcon>
+                                                        <CiTrash />
+
+                                                    </SvgIcon>
+                                                </IconButton>
+                                            </ListItemSecondaryAction>
+                                        </ListItem>
+                                    )
+                                }) :
+                                    <Typography>
+                                        No events
+                                    </Typography>
                         }
                     </List>
                 </CardContent>
-
             </Card>
         </Container>
 
 
     )
 }
-
-// import React from 'react'
-// import useCurrentEvent from '@/hooks/events/useCurrentEvent';
-// import useEvents from '@/hooks/events/useEvents';
-// import { Card, CardContent, CardHeader, Container, IconButton, Link, List, ListItem, ListItemSecondaryAction, ListItemText, Stack, SvgIcon, Typography } from '@mui/material'
-// import { format } from 'date-fns';
-// import { useRouter } from 'next/navigation';
-// import { IoMdMore } from "react-icons/io";
-
 
 export default SingleDayEventsComponent

@@ -20,10 +20,7 @@ export async function GET(request: Request) {
 
   const eventsData = readFileSync("./src/lib/data/events.json", "utf8");
   const events = JSON.parse(eventsData);
-  console.log("from and to and userId", from, to, userId, id);
-
   if (id) {
-    console.log("zero");
     const eventsRes = events.filter((event: EventType) => event.id === id);
     return Response.json({
       status: 200,
@@ -45,8 +42,12 @@ export async function GET(request: Request) {
   if (from && to && userId) {
     const eventsRes = events.filter((event: EventType) => {
       return (
-        event.start <= parseInt(from) &&
-        event.end >= parseInt(to) &&
+        // check if event is between from and to
+        ((event.start >= parseInt(from) && event.end <= parseInt(to)) ||
+          // check if event starts before from and ends after from
+          (event.start <= parseInt(from) && event.end >= parseInt(from)) ||
+          // check if event starts before to and ends after to
+          (event.start <= parseInt(to) && event.end >= parseInt(to))) &&
         event.userId === userId
       );
     });
@@ -59,7 +60,15 @@ export async function GET(request: Request) {
 
   if (from && to) {
     const eventsRes = events.filter((event: EventType) => {
-      return event.start >= parseInt(from) && event.end <= parseInt(to);
+      // check if event is between from and to
+      return (
+        // check if event is between from and to
+        (event.start >= parseInt(from) && event.end <= parseInt(to)) ||
+        // check if event starts before from and ends after from
+        (event.start <= parseInt(from) && event.end >= parseInt(from)) ||
+        // check if event starts before to and ends after to
+        (event.start <= parseInt(to) && event.end >= parseInt(to))
+      );
     });
 
     return Response.json({

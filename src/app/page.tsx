@@ -11,7 +11,6 @@ export default function Home() {
   const dispatch = useAppDispatch()
   const router = useRouter();
 
-
   const handleLogin = useCallback((user: UserState) => {
     dispatch(AuthThunks.loginUser(user));
     router.push("/calendar");
@@ -24,18 +23,12 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <Container sx={{
         width: '100%',
-      }} maxWidth="xl"
+      }} maxWidth="lg"
       >
         <h1 className="text-6xl font-bold text-center">
           Welcome to Calendar App
         </h1>
 
-        <p className="text-2xl mt-8">
-          Get started by editing{' '}
-          <code className="bg-gray-100 p-3 rounded font-mono text-lg">
-            pages/index.js
-          </code>
-        </p>
         <Container maxWidth="md">
           <Card>
             <CardHeader title={<Typography color={"black"}>Users</Typography>} />
@@ -92,7 +85,6 @@ export default function Home() {
                 }
               </List>
             </CardContent>
-
           </Card>
         </Container>
       </Container>

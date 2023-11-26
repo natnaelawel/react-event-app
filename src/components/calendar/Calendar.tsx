@@ -3,46 +3,42 @@
 import Calendar from '@fullcalendar/react';
 import useModal from "@/hooks/common/modal";
 import useCurrentEvent from "@/hooks/events/useCurrentEvent";
-import useEvents from "@/hooks/events/useEvents";
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import listPlugin from '@fullcalendar/list';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import timelinePlugin from '@fullcalendar/timeline';
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { calendarThunks } from "@/store/thunks/calendar";
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { Box, Card, CardHeader, Container, Link, List, ListItem, ListItemText, Stack, Theme, useMediaQuery } from "@mui/material";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { CalendarStyleWrapper } from './CalendarStyleWrapper';
 import CurrentDateEvents from './CurrentDateEvents';
-import useUsers from '@/hooks/users/useUsers';
 import { CalendarToolbar, View } from './CalendarToolbar';
 import { EventModal } from './EventModal';
+import useAuth from '@/hooks/auth/useAuth';
+import { EventState } from '@/types/events';
+import { useCreateEventMutation, useUpdateEventMutation } from '@/services/events';
+import toast from 'react-hot-toast';
 
-const CalendarComponent = () => {
+type Props = {
+    events: EventState[];
+}
+
+const CalendarComponent = ({ events }: Props) => {
     const dispatch = useAppDispatch();
     const calendarRef = useRef<any>(null);
-    const { user: currentUser } = useAppSelector(
-        (state) => state.auth
-    );
-    const events = useEvents({
-        userId: currentUser?.id
-    });
+    const currentUser = useAuth();
+
     const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('md'));
     const [date, setDate] = useState(new Date());
     const [view, setView] = useState<View>(mdUp ? View.timeGridDay : View.dayGridMonth);
     const createModal = useModal();
     const updateModal = useModal();
     const updatingEvent = useCurrentEvent(events, updateModal.data);
-    const [selectedDateRange, setSelectedDateRange] = useState<{
-        from?: number;
-        to?: number;
-    }>({
-
-    });
-
+    const [updateEvent] = useUpdateEventMutation();
+    const [createEvent] = useCreateEventMutation();
     const handleScreenResize = useCallback(() => {
         const calendarEl = calendarRef.current;
 
@@ -114,13 +110,6 @@ const CalendarComponent = () => {
             const calendarApi = calendarEl.getApi();
             calendarApi.unselect();
         }
-
-        console.log(arg, "arg");
-        setSelectedDateRange({
-            from: arg.start.getTime(),
-            to: arg.end.getTime()
-        });
-
         createModal.handleOpen({
             range: {
                 start: arg.start.getTime(),
@@ -139,16 +128,17 @@ const CalendarComponent = () => {
 
     const handleEventResize = useCallback(async (arg: any) => {
         const { event } = arg;
-
         try {
-            await dispatch(calendarThunks.updateEvent({
+            await updateEvent({
                 eventId: event.id,
                 update: {
                     allDay: event.allDay,
                     start: event.start?.getTime(),
                     end: event.end?.getTime()
                 }
-            }));
+            }).unwrap();
+            toast.success('Event updated successfully');
+
         } catch (err) {
             console.error(err);
         }
@@ -158,14 +148,15 @@ const CalendarComponent = () => {
         const { event } = arg;
 
         try {
-            await dispatch(calendarThunks.updateEvent({
+            await updateEvent({
                 eventId: event.id,
                 update: {
                     allDay: event.allDay,
                     start: event.start?.getTime(),
                     end: event.end?.getTime()
                 }
-            }));
+            }).unwrap();
+            toast.success('Event updated successfully');
         } catch (err) {
             console.error(err);
         }
@@ -177,16 +168,22 @@ const CalendarComponent = () => {
                 component="main"
                 sx={{
                     flexGrow: 1,
-                    py: 8
+                    width: "100%",
+                    py: 2
                 }}
             >
                 <Container maxWidth="xl">
-                    <Stack direction={"row"}>
+                    <Stack sx={{
+                        flexGrow: 1,
+                    }} direction={"row"}>
                         <Stack
                             sx={{
                                 flexGrow: 1,
                             }}
-                            spacing={3}>
+                            spacing={{
+                                xs: 2,
+                                md: 3
+                            }}>
                             <CalendarToolbar
                                 date={date}
                                 onAddClick={handleAddClick}
@@ -225,14 +222,16 @@ const CalendarComponent = () => {
                                         select={handleRangeSelect}
                                         selectable
                                         weekends
-
                                     />
                                 </CalendarStyleWrapper  >
                             </Card>
                         </Stack>
-                        <Stack>
-                            <CurrentDateEvents selectedDateRange={selectedDateRange} userId={currentUser?.id} />
-                        </Stack>
+                        {
+                            mdUp &&
+                            <Stack>
+                                <CurrentDateEvents userId={currentUser?.id} />
+                            </Stack>
+                        }
                     </Stack>
                 </Container>
             </Box>

@@ -4,12 +4,19 @@ export const CalendarStyleWrapper = styled('div')(({ theme }) => ({
   '& .fc-license-message': {
     display: 'none'
   },
+  '& .fc-now-indicator': {
+    backgroundColor: theme.palette.primary.main,
+    opacity: 1,
+    zIndex: 9999
+  },
   '& .fc': {
     '--fc-bg-event-opacity': 1,
     '--fc-border-color': theme.palette.divider,
     '--fc-daygrid-event-dot-width': '10px',
-    '--fc-event-bg-color': theme.palette.primary.main,
-    '--fc-event-border-color': theme.palette.primary.main,
+    // '--fc-event-bg-color': theme.palette.primary.main,
+    '--fc-event-bg-color': "transparent",
+    // '--fc-event-border-color': theme.palette.primary.main,
+    '--fc-event-border-color': "transparent",
     '--fc-event-text-color': theme.palette.primary.contrastText,
     '--fc-list-event-hover-bg-color': theme.palette.background.default,
     '--fc-neutral-bg-color': theme.palette.background.default,

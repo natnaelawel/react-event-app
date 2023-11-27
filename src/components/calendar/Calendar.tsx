@@ -10,7 +10,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import timelinePlugin from '@fullcalendar/timeline';
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { Box, Card, CardHeader, Container, Link, List, ListItem, ListItemText, Stack, Theme, useMediaQuery } from "@mui/material";
+import { Badge, Box, Card, CardHeader, Container, Link, List, ListItem, ListItemText, Stack, Theme, Typography, useMediaQuery } from "@mui/material";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { CalendarStyleWrapper } from './CalendarStyleWrapper';
@@ -21,6 +21,8 @@ import useAuth from '@/hooks/auth/useAuth';
 import { EventState } from '@/types/events';
 import { useUpdateEventMutation } from '@/services/events';
 import toast from 'react-hot-toast';
+import { format } from 'date-fns';
+import theme from '@/utils/theme';
 
 type Props = {
     events: EventState[];
@@ -164,8 +166,8 @@ const CalendarComponent = ({ events }: Props) => {
     }, [dispatch]);
 
     const eventContent = (arg: any) => {
-        const colors = ['#FF5733', '#33FF57', '#5733FF', '#FF33EC', '#33C7FF']; // Add more colors if needed
-        const index = arg.event.start.getDay() % colors.length;
+        const timeText = format(arg.event.start, 'hh:mmaa',);
+        console.log(arg.event.color)
         return (
             <Stack
                 className="custom-event"
@@ -173,20 +175,31 @@ const CalendarComponent = ({ events }: Props) => {
                 alignItems={"center"}
                 flexWrap={"wrap"}
                 sx={{
-                    backgroundColor: colors[index],
+                    // backgroundColor: arg.event.color || theme.palette.primary.main,
                     color: "white",
                     borderRadius: "5px",
                     padding: 1,
-                    wordWrap: "break-word",
+                    columnGap: 1,
+                    overflow: "ellipsis",
+                    height: arg.event.allDay ? "100%" : "auto",
                 }}
             >
+                <Badge
+                    color="primary"
+                    variant="dot" invisible
+                >
+                    {arg.event.allDay ? "All day" : ""}
+                </Badge>
                 <span>
-                    {arg.timeText}
+                    {timeText}
                 </span>
-                {/* <br /> */}
-                <span>
+                <Typography sx={{
+                    wordWrap: "break-word",
+                    maxWidth: "100%",
+                    overflow: "hidden",
+                }} textOverflow={"ellipsis"}>
                     {arg.event.title}
-                </span>
+                </Typography>
             </Stack>
         );
     };
@@ -226,6 +239,7 @@ const CalendarComponent = ({ events }: Props) => {
                             <CalendarStyleWrapper>
                                 <Calendar
                                     ref={calendarRef}
+                                    nowIndicator
                                     eventClassNames={["custom-event"]}
                                     eventContent={eventContent}
                                     allDayMaintainDuration
@@ -253,6 +267,7 @@ const CalendarComponent = ({ events }: Props) => {
                                     select={handleRangeSelect}
                                     selectable
                                     weekends
+                                    longPressDelay={0.7}
                                 />
                             </CalendarStyleWrapper  >
                         </Card>

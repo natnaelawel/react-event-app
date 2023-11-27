@@ -147,6 +147,7 @@ export const CalendarToolbar = (props: CalendarToolbarProps) => {
             <Box
                 sx={{
                     display: "flex",
+                    columnGap: 1,
                 }}
             >
                 <Typography variant="h5">
@@ -205,7 +206,6 @@ export const CalendarToolbar = (props: CalendarToolbarProps) => {
                     )}
                     sx={{
                         width: {
-
                         }
                     }}
                     variant="contained"

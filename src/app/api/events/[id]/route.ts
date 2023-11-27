@@ -9,6 +9,7 @@ type EventType = {
   start: number;
   end: number;
   userId: string;
+  color?: string;
 };
 
 export async function GET(
@@ -86,7 +87,7 @@ export async function PUT(
   request: Request,
   { params: { id } }: { params: { id: string } }
 ) {
-  const { title, description, allDay, start, end, userId } =
+  const { title, description, allDay, start, end, userId, color } =
     await request.json();
 
   try {
@@ -116,7 +117,8 @@ export async function PUT(
     event.start = start || event.start;
     event.end = end || event.end;
     event.userId = userId || event.userId;
-
+    event.color = color || event.color;
+    
     // save the updated event
     const updatedEvents = events.map((event: EventType) => {
       if (event.id === id) {

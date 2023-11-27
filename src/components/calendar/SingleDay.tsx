@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react'
-import { Box, Stack, Container, Card, CardHeader, Typography, CardContent, List, ListItem, ListItemText, Link, ListItemSecondaryAction, IconButton, SvgIcon, CircularProgress } from '@mui/material';
+import { Box, Stack, Container, Card, CardHeader, Typography, CardContent, List, ListItem, ListItemText, Link, ListItemSecondaryAction, IconButton, SvgIcon, CircularProgress, ListItemAvatar, Avatar } from '@mui/material';
 import { CiTrash } from "react-icons/ci";
 import { format } from 'date-fns';
 import { useDeleteEventMutation, useGetEventsQuery } from '@/services/events';
@@ -75,30 +75,45 @@ const SingleDayEventsComponent = (props: Props) => {
                                             }}
                                             divider
                                         >
+                                            <ListItemAvatar>
+                                                <Avatar
+                                                    sx={{
+                                                        backgroundColor: event.color,
+                                                        width: 20,
+                                                        height: 20
+                                                    }}
+                                                >
+                                                    <Box sx={{
+                                                        backgroundColor: event.color,
+                                                        width: "10px",
+                                                        height: "10px",
+                                                    }} >
+                                                    </Box>
+                                                </Avatar>
+                                            </ListItemAvatar>
+
                                             <ListItemText
                                                 disableTypography
                                                 primary={(
-                                                    <Link
+
+                                                    <Typography
                                                         color="text.primary"
-                                                        noWrap
-                                                        sx={{ cursor: 'pointer' }}
-                                                        underline="none"
-                                                        variant="subtitle2"
+                                                        variant="body1"
                                                     >
                                                         {event.title}
-                                                    </Link>
+                                                    </Typography>
                                                 )}
                                                 secondary={(
-                                                    <Stack direction={"column"} px={2}>
+                                                    <Stack direction={"column"}>
                                                         <span>
                                                             {event.description}
                                                         </span>
                                                         <Stack >
                                                             <Typography variant={"caption"}>
-                                                                From:  {format(new Date(event.start), "yyyy-MM-dd HH:mm aa")}
+                                                                From:  {format(new Date(event.start), "yyyy-MM-dd hh:mm aa")}
                                                             </Typography>
                                                             <Typography variant={"caption"}>
-                                                                To: {format(new Date(event.end), "yyyy-MM-dd HH:mm aa")}
+                                                                To: {format(new Date(event.end), "yyyy-MM-dd hh:mm aa")}
                                                             </Typography>
                                                             <SeverityPill color={"primary"}>
                                                                 {event.allDay ? "All day" : ""}

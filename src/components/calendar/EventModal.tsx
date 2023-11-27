@@ -12,6 +12,7 @@ import {
     Button,
     Dialog,
     Divider,
+    FormControl,
     FormControlLabel,
     FormHelperText,
     IconButton,
@@ -27,6 +28,7 @@ import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { useRouter } from 'next/navigation';
 import { useCreateEventMutation, useDeleteEventMutation, useUpdateEventMutation } from '@/services/events';
 import { EventState } from '@/types/events';
+import ColorPickerComponent from '../common/ColorPicker';
 const useInitialValues = (event: any, range: any) => {
     return useMemo(() => {
         if (event) {
@@ -69,6 +71,7 @@ const validationSchema = Yup.object({
     description: Yup.string().max(5000),
     end: Yup.date(),
     start: Yup.date(),
+    color: Yup.string(),
     title: Yup
         .string()
         .max(255)
@@ -119,7 +122,8 @@ export const EventModal = (props: Props) => {
                     end: values.end.getTime(),
                     start: values.start.getTime(),
                     title: values.title,
-                    userId: currentUser?.id || ""
+                    userId: currentUser?.id || "",
+                    color: values.color
                 };
 
                 if (action === 'update') {
@@ -190,6 +194,13 @@ export const EventModal = (props: Props) => {
 
     const router = useRouter();
 
+    const handleColorChange = useCallback(
+        (event: any) => {
+            formik.setFieldValue('color', event.target.value);
+        },
+        [formik]
+    );
+
     return (
         <Dialog
             fullWidth
@@ -248,16 +259,21 @@ export const EventModal = (props: Props) => {
                         onChange={formik.handleChange}
                         value={formik.values.description}
                     />
-                    <FormControlLabel
-                        control={(
-                            <Switch
-                                checked={formik.values.allDay}
-                                name="allDay"
-                                onChange={formik.handleChange}
-                            />
-                        )}
-                        label="All day"
-                    />
+                    <Stack direction={"row"} alignItems={"center"} justifyContent={"space-between"} >
+                        <FormControlLabel
+                            control={(
+                                <Switch
+                                    checked={formik.values.allDay}
+                                    name="allDay"
+                                    onChange={formik.handleChange}
+                                />
+                            )}
+                            label="All day"
+                        />
+
+                        <ColorPickerComponent formik={formik} />
+                    </Stack>
+
                     <DateTimePicker
                         label="Start date"
                         onChange={handleStartDateChange}

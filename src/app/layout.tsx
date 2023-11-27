@@ -24,7 +24,6 @@ export default function RootLayout({
           <ThemeProvider theme={theme}>
             <CssBaseline />
             {children}
-
             <ToasterComponent />
           </ThemeProvider>
         </Provider>

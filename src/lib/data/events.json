@@ -1,101 +1,39 @@
 [
   {
-    "id": "bbe577b6-8c15-4bc6-bcf4-8268dfc8eb5f",
-    "title": "Meeting one",
-    "description": "Meeting description",
-    "allDay": true,
-    "start": 1699304400000,
-    "end": 1699563600000,
-    "userId": "3290ad5f-f2e9-4aeb-aa6f-4e4e7e0b7b9e"
-  },
-  {
-    "id": "cb04c13a-b6ee-43cc-a661-601939a21f4f",
-    "title": "Exercise one",
-    "description": "some description",
+    "id": "b05619ac-209c-43ef-94ad-a48d82779b16",
+    "title": "Meeting with Clients",
+    "description": "Some description",
     "allDay": false,
-    "start": 1700946000000,
-    "end": 1701032400000,
-    "userId": "3290ad5f-f2e9-4aeb-aa6f-4e4e7e0b7b9e"
+    "start": 1701032400000,
+    "end": 1701186840000,
+    "userId": "3290ad5f-f2e9-4aeb-aa6f-4e4e7e0b7b9d",
+    "color": "#a3299f"
   },
   {
-    "id": "0c119f17-eea1-4384-b020-f8459c4c855c",
+    "id": "d4b8c003-44e8-4b50-a9a8-5e456db645be",
+    "title": "Play Soccer",
+    "allDay": false,
+    "start": 1701046800000,
+    "end": 1701064800000,
+    "userId": "3290ad5f-f2e9-4aeb-aa6f-4e4e7e0b7b9d",
+    "color": "#333333"
+  },
+  {
+    "id": "0ad826cb-45eb-4cae-8a04-99afe67e4641",
     "title": "Lunch Meeting",
     "allDay": false,
-    "start": 1700946000000,
-    "end": 1701032400000,
-    "userId": "3290ad5f-f2e9-4aeb-aa6f-4e4e7e0b7b9e"
-  },
-  {
-    "id": "10b403b2-8d7d-4ecd-b33b-cf6fc7494641",
-    "title": "Thursday Meeting with Govenment",
-    "allDay": false,
-    "start": 1700686800000,
-    "end": 1700773200000,
-    "userId": "3290ad5f-f2e9-4aeb-aa6f-4e4e7e0b7b9e"
-  },
-  {
-    "id": "4c2966d3-c4c6-402b-b260-9d00326e09c1",
-    "title": "Happy Hour",
-    "allDay": false,
-    "start": 1699650000000,
-    "end": 1699736400000,
-    "userId": "3290ad5f-f2e9-4aeb-aa6f-4e4e7e0b7b9e"
-  },
-  {
-    "id": "63438e02-31af-4588-a10f-b0a29681e282",
-    "title": "Dinner",
-    "allDay": false,
-    "start": 1701205200000,
-    "end": 1701291600000,
-    "userId": "3290ad5f-f2e9-4aeb-aa6f-4e4e7e0b7b9e"
-  },
-  {
-    "id": "db91b588-5278-41ee-95b8-5e5c8fe4efb6",
-    "title": "Birthday Party",
-    "allDay": false,
-    "start": 1699765020000,
-    "end": 1699822800000,
-    "userId": "3290ad5f-f2e9-4aeb-aa6f-4e4e7e0b7b9e"
-  },
-  {
-    "id": "7889bf5e-aad4-4825-bc70-99bd440874c1",
-    "title": "Group Discussion",
-    "allDay": false,
-    "start": 1701032400000,
-    "end": 1701118800000,
-    "userId": "3290ad5f-f2e9-4aeb-aa6f-4e4e7e0b7b9e"
-  },
-  {
-    "id": "5dece140-3d80-4f28-9788-6434a50d747d",
-    "title": "Learn to Meditate",
-    "description": "some description",
-    "allDay": false,
-    "start": 1701032400000,
-    "end": 1701118800000,
-    "userId": "3290ad5f-f2e9-4aeb-aa6f-4e4e7e0b7b9e"
-  },
-  {
-    "id": "15a3e265-6598-4bf7-b1e4-ef1c474c9d5a",
-    "title": "New Event",
-    "allDay": false,
     "start": 1700082000000,
-    "end": 1700168400000,
-    "userId": "3290ad5f-f2e9-4aeb-aa6f-4e4e7e0b7b9e"
+    "end": 1700254800000,
+    "userId": "3290ad5f-f2e9-4aeb-aa6f-4e4e7e0b7b9d",
+    "color": "#0db52e"
   },
   {
-    "id": "37fac010-98b2-4e4b-bdda-770377166554",
-    "title": "new Event",
+    "id": "32debde3-5c8b-44ea-800b-9deabeabb768",
+    "title": "Brunch Break",
     "allDay": false,
-    "start": 1699650000000,
-    "end": 1699736400000,
-    "userId": "3290ad5f-f2e9-4aeb-aa6f-4e4e7e0b7b9d"
-  },
-  {
-    "id": "0daf2611-b716-4423-a6bc-c5bf45097840",
-    "title": "Today's event",
-    "allDay": false,
-    "start": 1701032400000,
-    "end": 1701118800000,
-    "userId": "3290ad5f-f2e9-4aeb-aa6f-4e4e7e0b7b9d"
+    "start": 1700886600000,
+    "end": 1700893800000,
+    "userId": "3290ad5f-f2e9-4aeb-aa6f-4e4e7e0b7b9d",
+    "color": "#052648"
   }
 ]

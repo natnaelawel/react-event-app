@@ -64,7 +64,7 @@ const CalendarLayout = (props: Props) => {
                                         {...stringAvatar(currentUser?.name || "No Name")}
                                         sx={{
                                             ...stringAvatar(currentUser?.name || "No Name").sx,
-                                            width: 24, height: 24, fontSize: 12
+                                            width: 32, height: 32, fontSize: 14
                                         }}
                                     />
                                     <Typography>
@@ -75,7 +75,7 @@ const CalendarLayout = (props: Props) => {
                                     variant="outlined"
                                     onClick={handleLogout}
                                 >
-                                    Sign out
+                                    Switch User
                                 </Button>
                             </Stack>
                         </Box>

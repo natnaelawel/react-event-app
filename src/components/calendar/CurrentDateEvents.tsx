@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, CardContent, CardHeader, CircularProgress, Link, Container, IconButton, List, ListItem, ListItemSecondaryAction, ListItemText, Stack, SvgIcon, Typography } from '@mui/material'
+import { Card, CardContent, CardHeader, CircularProgress, Link, Container, IconButton, List, ListItem, ListItemSecondaryAction, ListItemText, Stack, SvgIcon, Typography, Badge, styled, Box } from '@mui/material'
 import { format } from 'date-fns';
 import { useRouter } from 'next/navigation';
 import { useGetEventsQuery } from '@/services/events';
@@ -26,7 +26,6 @@ const CurrentDateEvents = (props: Props) => {
         }
     );
 
-    const router = useRouter();
     return (
         <Container sx={{
             width: '100%',
@@ -73,12 +72,25 @@ const CurrentDateEvents = (props: Props) => {
                                                 <ListItemText
                                                     disableTypography
                                                     primary={(
-                                                        <Typography
-                                                            color="text.primary"
-                                                            variant="subtitle2"
+                                                        <Stack
+                                                            direction={"row"}
+                                                            alignItems={"center"}
+                                                            spacing={1}
                                                         >
-                                                            {event.title}
-                                                        </Typography>
+                                                            <Box sx={{
+                                                                backgroundColor: event.color,
+                                                                width: "10px",
+                                                                height: "10px",
+                                                            }} >
+                                                            </Box>
+
+                                                            <Typography
+                                                                color="text.primary"
+                                                                variant="subtitle1"
+                                                            >
+                                                                {event.title}
+                                                            </Typography>
+                                                        </Stack>
                                                     )}
                                                     secondary={(
                                                         <Stack direction={"column"} px={2}>
@@ -87,10 +99,10 @@ const CurrentDateEvents = (props: Props) => {
                                                             </Typography>
                                                             <Stack >
                                                                 <Typography variant={"caption"}>
-                                                                    From:  {format(new Date(event.start), "MM-dd HH:mm aa ")}
+                                                                    From:  {format(new Date(event.start), "MM-dd hh:mm aa ")}
                                                                 </Typography>
                                                                 <Typography variant={"caption"}>
-                                                                    To: {format(new Date(event.end), "MM-dd HH:mm aa")}
+                                                                    To: {format(new Date(event.end), "MM-dd hh:mm aa")}
                                                                 </Typography>
 
                                                             </Stack>

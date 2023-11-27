@@ -10,6 +10,7 @@ type EventType = {
   start: number;
   end: number;
   userId: string;
+  color?: string;
 };
 
 export async function GET(request: Request) {
@@ -91,7 +92,7 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-  const { title, description, allDay, start, end, userId } =
+  const { title, description, allDay, start, end, userId, color } =
     await request.json();
 
   const newEvent = {
@@ -102,6 +103,7 @@ export async function POST(request: Request) {
     start,
     end,
     userId,
+    color
   };
   try {
     const filePath = path.join(
@@ -134,7 +136,7 @@ export async function POST(request: Request) {
 export async function PUT(request: Request) {
   const { searchParams } = new URL(request.url);
   const id = searchParams.get("id");
-  const { title, description, allDay, start, end, userId } =
+  const { title, description, allDay, start, end, userId, color } =
     await request.json();
 
   try {
@@ -164,6 +166,7 @@ export async function PUT(request: Request) {
     event.start = start || event.start;
     event.end = end || event.end;
     event.userId = userId || event.userId;
+    event.color = color || event.color;
 
     // save the updated event
     const updatedEvents = events.map((event: EventType) => {

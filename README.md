@@ -10,11 +10,13 @@ The features of this app are:
   \*\* To view the month, week, and day view, click on the month, week, and day buttons on the top right corner of the calendar. and on a mobile device, or a smaller screen the view is automatically set to the day view.
 
 - Add events to a calendar
-  \*\* To add an event, click on the day you want to add an event to and fill out the form
+  \*\* To add an event, click on the day you want to add an event to and fill out the form.
+
   Note: On a mobile device, or a smaller screen, the add event hold the button down for 1 seconds and it will open the dialog box.
 
 - Edit events
   \*\* To edit an event, click on the event and click on the confirm button on the dialog box. and it will edit the event.
+
   Note: On a mobile device, or a smaller screen, the add event hold the button down for 1 seconds and it will open the dialog box.
 
 - Delete events

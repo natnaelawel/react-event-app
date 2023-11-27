@@ -1,4 +1,3 @@
-import { useDispatch as useReduxDispatch, useSelector as useReduxSelector } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import { rootReducer } from './app';
 import type { PreloadedState } from '@reduxjs/toolkit'
@@ -14,11 +13,6 @@ export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
     preloadedState,
   })
 }
-
-
-// export type RootState = ReturnType<typeof store.getState>
-// export type AppDispatch = typeof store.dispatch
-// export type AppStore = ReturnType<typeof store>
 
 export type RootState = ReturnType<typeof rootReducer>
 export type AppStore = ReturnType<typeof setupStore>

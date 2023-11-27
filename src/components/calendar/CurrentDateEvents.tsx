@@ -2,10 +2,10 @@ import React from 'react'
 import { Card, CardContent, CardHeader, CircularProgress, Link, Container, IconButton, List, ListItem, ListItemSecondaryAction, ListItemText, Stack, SvgIcon, Typography } from '@mui/material'
 import { format } from 'date-fns';
 import { useRouter } from 'next/navigation';
-import { IoMdMore } from "react-icons/io";
 import { useGetEventsQuery } from '@/services/events';
 import NextLink from 'next/link';
 import { EventState } from '@/types/events';
+import { SeverityPill } from '../common/SeverityPill';
 
 type Props = {
     userId?: string;
@@ -51,23 +51,34 @@ const CurrentDateEvents = (props: Props) => {
                                     </Typography>
                                 ) :
                                     data.data.length > 0 ? data.data.map((event: EventState) => {
+                                        const startDate = format(new Date(format(new Date(event.start), "yyyy-MM-dd")), "yyyy-MM-dd")
+                                        const endDate = format(new Date(new Date(
+                                            format(new Date(event.end), "yyyy-MM-dd")
+                                        ).getTime() + 24 * 60 * 60 * 1000 - 1), "yyyy-MM-dd")
                                         return (
                                             <ListItem
+                                                component={NextLink}
+                                                href={`/calendar/${startDate}&${endDate}`}
                                                 key={event.id}
                                                 divider
+                                                sx={{
+                                                    '&:hover': {
+                                                        backgroundColor: 'action.hover',
+                                                        cursor: 'pointer'
+                                                    },
+                                                    textDecoration: "none",
+                                                    color: "inherit"
+                                                }}
                                             >
                                                 <ListItemText
                                                     disableTypography
                                                     primary={(
-                                                        <Link
-                                                            component={NextLink}
-                                                            href={`/calendar/${startDate}&${endDate}`}
+                                                        <Typography
                                                             color="text.primary"
-                                                            underline="none"
                                                             variant="subtitle2"
                                                         >
                                                             {event.title}
-                                                        </Link>
+                                                        </Typography>
                                                     )}
                                                     secondary={(
                                                         <Stack direction={"column"} px={2}>
@@ -81,25 +92,15 @@ const CurrentDateEvents = (props: Props) => {
                                                                 <Typography variant={"caption"}>
                                                                     To: {format(new Date(event.end), "MM-dd HH:mm aa")}
                                                                 </Typography>
+
                                                             </Stack>
                                                         </Stack>
                                                     )}
                                                 />
                                                 <ListItemSecondaryAction >
-                                                    <IconButton
-                                                        edge="end"
-                                                        onClick={() => {
-                                                            const startDate = format(new Date(format(new Date(event.start), "yyyy-MM-dd")), "yyyy-MM-dd")
-                                                            const endDate = format(new Date(new Date(
-                                                                format(new Date(event.end), "yyyy-MM-dd")
-                                                            ).getTime() + 24 * 60 * 60 * 1000 - 1), "yyyy-MM-dd") // end of the day
-                                                            router.push(`/calendar/${startDate}&${endDate}`)
-                                                        }}
-                                                    >
-                                                        <SvgIcon>
-                                                            <IoMdMore />
-                                                        </SvgIcon>
-                                                    </IconButton>
+                                                    <SeverityPill color={"primary"}>
+                                                        {event.allDay ? "All day" : ""}
+                                                    </SeverityPill>
                                                 </ListItemSecondaryAction>
                                             </ListItem>
                                         )
@@ -112,7 +113,6 @@ const CurrentDateEvents = (props: Props) => {
                         }
                     </List>
                 </CardContent>
-
             </Card>
         </Container>
     )

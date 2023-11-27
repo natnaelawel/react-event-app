@@ -3,7 +3,8 @@ import { useAppDispatch } from '@/hooks/redux'
 import useUsers from '@/hooks/users/useUsers'
 import { UserState } from '@/store/slices/user/userSlice'
 import { AuthThunks } from '@/store/thunks/auth'
-import { Button, Card, CardContent, CardHeader, CircularProgress, Container, IconButton, Link, List, ListItem, ListItemSecondaryAction, ListItemText, Stack, SvgIcon, Typography } from '@mui/material'
+import { stringAvatar } from '@/utils/helperfunctions'
+import { Avatar, Button, Card, CardContent, CardHeader, CircularProgress, Container, IconButton, Link, List, ListItem, ListItemAvatar, ListItemSecondaryAction, ListItemText, Stack, SvgIcon, Theme, Typography, useMediaQuery } from '@mui/material'
 import { useRouter } from 'next/navigation'
 import { useCallback } from 'react'
 
@@ -15,7 +16,7 @@ export default function Home() {
     dispatch(AuthThunks.loginUser(user));
     router.push("/calendar");
   }, [dispatch]);
-
+  const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('md'));
 
   const users = useUsers();
 
@@ -23,15 +24,37 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <Container sx={{
         width: '100%',
+        py: 4,
       }} maxWidth="lg"
       >
-        <h1 className="text-6xl font-bold text-center">
+        <Typography
+          variant={"h3"}
+          sx={{
+            mb: 2,
+            fontWeight: "bold",
+            color: "black",
+          }}
+          textAlign={"center"} >
           Welcome to Calendar App
-        </h1>
+        </Typography>
 
         <Container maxWidth="md">
           <Card>
-            <CardHeader title={<Typography color={"black"}>Users</Typography>} />
+            <CardHeader title={<Stack>
+              <Typography variant="h5" color={"black"}>
+                Users
+              </Typography>
+              <Typography variant="caption"
+                sx={{
+                  color: "black",
+                  fontSize: "1rem",
+                }}
+              >
+                Click on view to view user&apos;s calendar
+              </Typography>
+            </Stack>
+            }
+            />
             <CardContent >
               <List>
                 {
@@ -47,7 +70,15 @@ export default function Home() {
                         onClick={() => {
                         }}
                         divider
+                        sx={{
+                          columnGap: "1rem",
+                          display: "flex",
+                          alignItems: "center",
+                        }}
                       >
+                        <ListItemAvatar sx={{ mt: 0.5 }}>
+                          <Avatar {...stringAvatar(user.name)} />
+                        </ListItemAvatar>
                         <ListItemText
                           disableTypography
                           primary={(
@@ -72,9 +103,8 @@ export default function Home() {
                           display: "flex",
                           alignItems: "center",
                         }} >
-                          <Typography variant="body2">
-                            View user&apos;s events
-                          </Typography>
+
+
                           <Button
                             variant="outlined"
                             onClick={() => {

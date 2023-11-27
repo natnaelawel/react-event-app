@@ -314,8 +314,17 @@ export const EventModal = (props: Props) => {
                             disabled={formik.isSubmitting}
                             type="submit"
                             variant="contained"
+                            sx={{ px: 2, minWidth: 100 }}
                         >
-                            Confirm
+                            {
+                                action === 'update'
+                                    ? isUpdating
+                                        ? 'Updating...'
+                                        : 'Update'
+                                    : isCreating
+                                        ? 'Adding...'
+                                        : 'Add'
+                            }
                         </Button>
                     </Stack>
                 </Stack>

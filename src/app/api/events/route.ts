@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import { readFileSync, writeFileSync } from "fs";
+import path from "path";
 
 type EventType = {
   id: string;
@@ -12,15 +13,19 @@ type EventType = {
 };
 
 export async function GET(request: Request) {
-  const FILE_DIRECTORY_PATH =
-    process.env.FILE_DIRECTORY_PATH || "./src/lib/data";
   const { searchParams } = new URL(request.url);
   const id = searchParams.get("id");
   const userId = searchParams.get("userId");
   const from = searchParams.get("from");
   const to = searchParams.get("to");
-
-  const eventsData = readFileSync(`${FILE_DIRECTORY_PATH}/events.json`, "utf8");
+  const filePath = path.join(
+    process.cwd(),
+    "src",
+    "lib",
+    "data",
+    "events.json"
+  );
+  const eventsData = readFileSync(filePath, "utf8");
   const events = JSON.parse(eventsData);
   if (id) {
     const eventsRes = events.filter((event: EventType) => event.id === id);
@@ -99,20 +104,19 @@ export async function POST(request: Request) {
     userId,
   };
   try {
-    const FILE_DIRECTORY_PATH =
-      process.env.FILE_DIRECTORY_PATH || "./src/lib/data";
-    const eventsData = readFileSync(
-      `${FILE_DIRECTORY_PATH}/events.json`,
-      "utf8"
+    const filePath = path.join(
+      process.cwd(),
+      "src",
+      "lib",
+      "data",
+      "events.json"
     );
+    const eventsData = readFileSync(filePath, "utf8");
     const events = JSON.parse(eventsData);
 
     events.push(newEvent);
 
-    await writeFileSync(
-      `${FILE_DIRECTORY_PATH}/events.json`,
-      JSON.stringify(events, null, 2)
-    );
+    await writeFileSync(filePath, JSON.stringify(events, null, 2));
 
     return Response.json({
       status: 200,
@@ -134,13 +138,14 @@ export async function PUT(request: Request) {
     await request.json();
 
   try {
-    // first find the event
-    const FILE_DIRECTORY_PATH =
-      process.env.FILE_DIRECTORY_PATH || "./src/lib/data";
-    const eventsData = readFileSync(
-      `${FILE_DIRECTORY_PATH}/events.json`,
-      "utf8"
+    const filePath = path.join(
+      process.cwd(),
+      "src",
+      "lib",
+      "data",
+      "events.json"
     );
+    const eventsData = readFileSync(filePath, "utf8");
     const events = JSON.parse(eventsData);
 
     const event = events.find((event: EventType) => event.id === id);
@@ -170,7 +175,7 @@ export async function PUT(request: Request) {
     });
 
     await writeFileSync(
-      `${FILE_DIRECTORY_PATH}/events.json`,
+      filePath,
       JSON.stringify(updatedEvents, null, 2)
     );
 
@@ -190,16 +195,23 @@ export async function PUT(request: Request) {
 export async function DELETE(request: Request) {
   const { searchParams } = new URL(request.url);
   const id = searchParams.get("id");
-
+  const filePath = path.join(
+    process.cwd(),
+    "src",
+    "lib",
+    "data",
+    "events.json"
+  );
   try {
-    const FILE_DIRECTORY_PATH = process.env.FILE_DIRECTORY_PATH || "./src/lib/data";
-    const eventsData = readFileSync(`${FILE_DIRECTORY_PATH}/events.json`, "utf8");
+
+    const eventsData = readFileSync(filePath,
+      "utf8"
+    );
     const events = JSON.parse(eventsData);
 
     const filteredEvents = events.filter((event: EventType) => event.id !== id);
 
-    await writeFileSync(
-      `${FILE_DIRECTORY_PATH}/events.json`,
+    await writeFileSync(filePath,
       JSON.stringify(filteredEvents, null, 2)
     );
 

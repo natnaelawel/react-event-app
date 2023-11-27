@@ -11,15 +11,19 @@ The features of this app are:
 
 - Add events to a calendar
   \*\* To add an event, click on the day you want to add an event to and fill out the form
+  Note: On a mobile device, or a smaller screen, the add event hold the button down for 1 seconds and it will open the dialog box.
 
 - Edit events
   \*\* To edit an event, click on the event and click on the confirm button on the dialog box. and it will edit the event.
+  Note: On a mobile device, or a smaller screen, the add event hold the button down for 1 seconds and it will open the dialog box.
 
 - Delete events
   \*\* To delete an event, click on the event and click on the delete button on the dialog box, which is on the bottom left corner. and it will delete the event.
 
 - View events
-  \*\* To view events, click on the day you want to view events for, and the dialog box will pop up and click on Events button, and it will take you to the events page for a specific date range.
+  \*\* To view events, click on the day you want to view events for, and the dialog box will pop up and click on Go To Events button, and it will take you to the events page for a specific date range.
+
+  Note: On a mobile device, or a smaller screen, the add event hold the button down for 1 seconds and it will open the dialog box.
 
 - View events for a specific date range
   \*\* To view events for a specific date ranges, click on the day you want to view events for, and the dialog box will pop up and click on Events button, and it will take you to the events page for a specific date range.
@@ -36,7 +40,7 @@ The features of this app are:
 - Next.js
 - Material UI
 - FullCalendar
-- Redux toolkit
+- Redux toolkit with RTK Query
 - Formik & Yup
 - React Icons
 - Date-fns
@@ -48,19 +52,19 @@ The models for this app are:
 The events model is associated with the users model. The events model has a userId that is associated with the users model. The users model has an id that is associated with the events model.
 
 - Events
-  ** id
-  ** title
-  ** description
-  ** start
-  ** end
-  ** allDay
+  \*\* id
+  \*\* title
+  \*\* description
+  \*\* start
+  \*\* end
+  \*\* allDay
   \*\* userId
 
 - Users
-  ** id
-  ** name
-  ** email
-  ** password
+  \*\* id
+  \*\* name
+  \*\* email
+  \*\* password
 
 ## Images
 
@@ -74,4 +78,4 @@ The events model is associated with the users model. The events model has a user
 2. Run `npm install`
 3. Run `npm run dev`
 4. Go to `http://localhost:3000`
-5. Enjoy!
+5. That's it!

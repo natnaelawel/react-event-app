@@ -19,7 +19,7 @@ import { CalendarToolbar, View } from './CalendarToolbar';
 import { EventModal } from './EventModal';
 import useAuth from '@/hooks/auth/useAuth';
 import { EventState } from '@/types/events';
-import { useCreateEventMutation, useUpdateEventMutation } from '@/services/events';
+import { useUpdateEventMutation } from '@/services/events';
 import toast from 'react-hot-toast';
 
 type Props = {
@@ -27,18 +27,19 @@ type Props = {
 }
 
 const CalendarComponent = ({ events }: Props) => {
-    const dispatch = useAppDispatch();
-    const calendarRef = useRef<any>(null);
     const currentUser = useAuth();
 
+    const dispatch = useAppDispatch();
+    const calendarRef = useRef<any>(null);
+
     const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('md'));
+    const lgUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
     const [date, setDate] = useState(new Date());
     const [view, setView] = useState<View>(mdUp ? View.timeGridDay : View.dayGridMonth);
     const createModal = useModal();
     const updateModal = useModal();
     const updatingEvent = useCurrentEvent(events, updateModal.data);
     const [updateEvent] = useUpdateEventMutation();
-    const [createEvent] = useCreateEventMutation();
     const handleScreenResize = useCallback(() => {
         const calendarEl = calendarRef.current;
 

@@ -36,7 +36,7 @@ The features of this app are:
 - Next.js
 - Material UI
 - FullCalendar
-- Redux toolkit
+- Redux toolkit with RTK Query
 - Formik & Yup
 - React Icons
 - Date-fns

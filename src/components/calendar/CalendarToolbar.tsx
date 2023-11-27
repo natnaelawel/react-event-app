@@ -10,6 +10,7 @@ import {
 import { HiOutlinePlus } from "react-icons/hi";
 
 import {
+    Box,
     Button,
     IconButton,
     Stack,
@@ -20,26 +21,28 @@ import {
     useMediaQuery
 } from '@mui/material';
 
-const viewOptions = [
-    {
-        label: 'Month',
-        value: 'dayGridMonth'
-    },
-    {
-        label: 'Week',
-        value: 'timeGridWeek'
-    },
-    {
-        label: 'Day',
-        value: 'timeGridDay'
-    },
-];
 
 export enum View {
     dayGridMonth = 'dayGridMonth',
     timeGridWeek = 'timeGridWeek',
     timeGridDay = 'timeGridDay',
 }
+
+const viewOptions = [
+    {
+        label: 'Month',
+        value: View.dayGridMonth
+    },
+    {
+        label: 'Week',
+        value: View.timeGridWeek
+    },
+    {
+        label: 'Day',
+        value: View.timeGridDay
+    },
+];
+
 
 type CalendarToolbarProps = {
     date: Date;
@@ -76,7 +79,10 @@ export const CalendarToolbar = (props: CalendarToolbarProps) => {
     const availableViewOptions = useMemo(() => {
         return mdUp
             ? viewOptions
-            : viewOptions.filter((option) => ['timeGridDay', 'listWeek'].includes(option.value));
+            : viewOptions.filter((option: {
+                label: string;
+                value: View;
+            }) => [View.timeGridDay].includes(option.value));
     }, [mdUp]);
 
     return (
@@ -88,38 +94,61 @@ export const CalendarToolbar = (props: CalendarToolbarProps) => {
                 xs: 'column',
                 md: 'row'
             }}
-            sx={{ px: 3, py: 1 }}
+            sx={{
+                py: 1,
+                width: "100%",
+                overflow: "auto",
+                gap: 1,
+            }}
+            spacing={1}
             {...other}
         >
-            <Stack
-                alignItems="center"
-                direction="row"
+            <Box
                 spacing={1}
+                width={{
+                    xs: "100%",
+                    md: "auto"
+                }}
+                sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    xs: {
+                        flexGrow: 1,
+                        width: "100%",
+                        justifyContent: "space-between"
+                    },
+                }}
             >
-                <IconButton onClick={onDatePrev}>
-                    <SvgIcon>
-                        <MdArrowBackIos />
-                    </SvgIcon>
-                </IconButton>
-                <IconButton onClick={onDateNext}>
-                    <SvgIcon>
-                        <MdArrowForwardIos />
-                    </SvgIcon>
-                </IconButton>
+                <Stack direction={"row"} sx={{
+                }}>
+                    <IconButton onClick={onDatePrev}>
+                        <SvgIcon>
+                            <MdArrowBackIos />
+                        </SvgIcon>
+                    </IconButton>
+                    <IconButton onClick={onDateNext}>
+                        <SvgIcon>
+                            <MdArrowForwardIos />
+                        </SvgIcon>
+                    </IconButton>
+                </Stack>
 
                 <Button
                     sx={{
                         width: {
-                            xs: '100%',
-                            md: 'auto'
+                            md: 'auto',
+                            minWidth: "100px"
                         }
                     }}
                     variant='outlined' onClick={onDateToday}>
                     Today
                 </Button>
-            </Stack>
-            <Stack
-                direction={"row"} alignItems={"center"} spacing={1}>
+            </Box>
+            <Box
+                sx={{
+                    display: "flex",
+                }}
+            >
                 <Typography variant="h5">
                     {dateMonth}
                 </Typography>
@@ -130,11 +159,17 @@ export const CalendarToolbar = (props: CalendarToolbarProps) => {
                 >
                     {dateDay}
                 </Typography>
-            </Stack>
-            <Stack
-                alignItems="center"
-                direction="row"
-                spacing={1}
+            </Box>
+            <Box
+                width={{
+                    xs: "100%",
+                    md: "auto"
+                }}
+                sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    gap: 1
+                }}
             >
                 <TextField
                     label="View"
@@ -170,15 +205,14 @@ export const CalendarToolbar = (props: CalendarToolbarProps) => {
                     )}
                     sx={{
                         width: {
-                            xs: '100%',
-                            md: 'auto'
+
                         }
                     }}
                     variant="contained"
                 >
                     New Event
                 </Button>
-            </Stack>
+            </Box>
         </Stack>
     );
 };

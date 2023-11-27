@@ -64,5 +64,14 @@
     "start": 1701032400000,
     "end": 1701118800000,
     "userId": "3290ad5f-f2e9-4aeb-aa6f-4e4e7e0b7b9e"
+  },
+  {
+    "id": "5dece140-3d80-4f28-9788-6434a50d747d",
+    "title": "Learn to Meditate",
+    "description": "some description",
+    "allDay": false,
+    "start": 1701032400000,
+    "end": 1701118800000,
+    "userId": "3290ad5f-f2e9-4aeb-aa6f-4e4e7e0b7b9e"
   }
 ]

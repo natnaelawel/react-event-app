@@ -13,6 +13,19 @@ const initialSettings = {
 
 let theme = createTheme({
   direction: "ltr",
+  palette: {
+    mode: "light",
+    primary: {
+      main: "#1976d2",
+    },
+    secondary: {
+      main: "#dc004e",
+    },
+    background: {
+      default: "#f4f6f8",
+      paper: "#ffffff",
+    },
+  },
   breakpoints: {
     values: {
       xs: 0,

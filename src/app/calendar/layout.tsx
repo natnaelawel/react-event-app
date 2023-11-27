@@ -3,11 +3,12 @@
 
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { AuthThunks } from "@/store/thunks/auth";
-import { Box, Button, Container, Link, Stack, Typography } from "@mui/material"
+import { Avatar, Box, Button, Container, Link, Stack, Typography } from "@mui/material"
 import Head from "next/head"
 import { useRouter } from "next/navigation";
 import { useCallback } from "react";
 import NextLink from 'next/link';
+import { stringAvatar } from "@/utils/helperfunctions";
 
 type Props = {
     children: React.ReactNode;
@@ -58,9 +59,18 @@ const CalendarLayout = (props: Props) => {
                                 </Link>
                             </Box>
                             <Stack direction="row" alignItems={"center"} spacing={3}>
-                                <Typography>
-                                    {currentUser?.name}
-                                </Typography>
+                                <Stack direction="row" alignItems={"center"} spacing={1}>
+                                    <Avatar
+                                        {...stringAvatar(currentUser?.name || "No Name")}
+                                        sx={{
+                                            ...stringAvatar(currentUser?.name || "No Name").sx,
+                                            width: 24, height: 24, fontSize: 12
+                                        }}
+                                    />
+                                    <Typography>
+                                        {currentUser?.name}
+                                    </Typography>
+                                </Stack>
                                 <Button
                                     variant="outlined"
                                     onClick={handleLogout}

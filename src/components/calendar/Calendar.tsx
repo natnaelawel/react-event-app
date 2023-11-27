@@ -199,73 +199,71 @@ const CalendarComponent = ({ events }: Props) => {
                 sx={{
                     flexGrow: 1,
                     width: "100%",
-                    py: 2
+                    py: 2,
                 }}
             >
-                <Container maxWidth="xl">
-                    <Stack sx={{
-                        flexGrow: 1,
-                    }} direction={"row"}>
-                        <Stack
-                            sx={{
-                                flexGrow: 1,
-                            }}
-                            spacing={{
-                                xs: 2,
-                                md: 3
-                            }}>
-                            <CalendarToolbar
-                                date={date}
-                                onAddClick={handleAddClick}
-                                onDateNext={handleDateNext}
-                                onDatePrev={handleDatePrev}
-                                onDateToday={handleDateToday}
-                                onViewChange={handleViewChange}
-                                view={view}
-                            />
-                            <Card>
-                                <CalendarStyleWrapper>
-                                    <Calendar
-                                        ref={calendarRef}
-                                        eventClassNames={["custom-event"]}
-                                        eventContent={eventContent}
-                                        allDayMaintainDuration
-                                        dayMaxEventRows={3}
-                                        droppable
-                                        editable
-                                        eventClick={handleEventSelect}
-                                        eventDisplay="block"
-                                        eventDrop={handleEventDrop}
-                                        eventResizableFromStart
-                                        eventResize={handleEventResize}
-                                        events={events}
-                                        headerToolbar={false}
-                                        height={800}
-                                        initialDate={date}
-                                        initialView={view}
-                                        plugins={[
-                                            dayGridPlugin,
-                                            interactionPlugin,
-                                            listPlugin,
-                                            timeGridPlugin,
-                                            timelinePlugin
-                                        ]}
-                                        rerenderDelay={10}
-                                        select={handleRangeSelect}
-                                        selectable
-                                        weekends
-                                    />
-                                </CalendarStyleWrapper  >
-                            </Card>
-                        </Stack>
-                        {
-                            mdUp &&
-                            <Stack>
-                                <CurrentDateEvents userId={currentUser?.id} />
-                            </Stack>
-                        }
+                <Stack sx={{
+                    flexGrow: 1,
+                }} direction={"row"}>
+                    <Stack
+                        sx={{
+                            flexGrow: 1,
+                        }}
+                        spacing={{
+                            xs: 2,
+                            md: 3
+                        }}>
+                        <CalendarToolbar
+                            date={date}
+                            onAddClick={handleAddClick}
+                            onDateNext={handleDateNext}
+                            onDatePrev={handleDatePrev}
+                            onDateToday={handleDateToday}
+                            onViewChange={handleViewChange}
+                            view={view}
+                        />
+                        <Card>
+                            <CalendarStyleWrapper>
+                                <Calendar
+                                    ref={calendarRef}
+                                    eventClassNames={["custom-event"]}
+                                    eventContent={eventContent}
+                                    allDayMaintainDuration
+                                    dayMaxEventRows={3}
+                                    droppable
+                                    editable
+                                    eventClick={handleEventSelect}
+                                    eventDisplay="block"
+                                    eventDrop={handleEventDrop}
+                                    eventResizableFromStart
+                                    eventResize={handleEventResize}
+                                    events={events}
+                                    headerToolbar={false}
+                                    height={800}
+                                    initialDate={date}
+                                    initialView={view}
+                                    plugins={[
+                                        dayGridPlugin,
+                                        interactionPlugin,
+                                        listPlugin,
+                                        timeGridPlugin,
+                                        timelinePlugin
+                                    ]}
+                                    rerenderDelay={10}
+                                    select={handleRangeSelect}
+                                    selectable
+                                    weekends
+                                />
+                            </CalendarStyleWrapper  >
+                        </Card>
                     </Stack>
-                </Container>
+                    {
+                        mdUp &&
+                        <Stack>
+                            <CurrentDateEvents userId={currentUser?.id} />
+                        </Stack>
+                    }
+                </Stack>
             </Box>
             <EventModal
                 action="create"

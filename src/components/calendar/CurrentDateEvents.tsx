@@ -65,19 +65,20 @@ const CurrentDateEvents = (props: Props) => {
                                                     '&:hover': {
                                                         backgroundColor: 'action.hover',
                                                         cursor: 'pointer'
-                                                    }
+                                                    },
+                                                    textDecoration: "none",
+                                                    color: "inherit"
                                                 }}
                                             >
                                                 <ListItemText
                                                     disableTypography
                                                     primary={(
-                                                        <Link
+                                                        <Typography
                                                             color="text.primary"
-                                                            underline="none"
                                                             variant="subtitle2"
                                                         >
                                                             {event.title}
-                                                        </Link>
+                                                        </Typography>
                                                     )}
                                                     secondary={(
                                                         <Stack direction={"column"} px={2}>

@@ -146,21 +146,20 @@ export async function DELETE(
   { params: { id } }: { params: { id: string } }
 ) {
   try {
-    const FILE_DIRECTORY_PATH =
-      process.env.FILE_DIRECTORY_PATH || "./src/lib/data";
-
-    const eventsData = readFileSync(
-      `${FILE_DIRECTORY_PATH}/events.json`,
-      "utf8"
+    const filePath = path.join(
+      process.cwd(),
+      "src",
+      "lib",
+      "data",
+      "events.json"
     );
+
+    const eventsData = readFileSync(filePath, "utf8");
     const events = JSON.parse(eventsData);
 
     const filteredEvents = events.filter((event: EventType) => event.id !== id);
 
-    await writeFileSync(
-      `${FILE_DIRECTORY_PATH}/events.json`,
-      JSON.stringify(filteredEvents, null, 2)
-    );
+    await writeFileSync(filePath, JSON.stringify(filteredEvents, null, 2));
 
     return Response.json({
       status: 200,

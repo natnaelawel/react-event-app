@@ -21,14 +21,17 @@ const DateSpanPage = (props: Props) => {
         <Box
             display={"flex"}
             sx={{
-                minHeight: "80vh",
                 width: "100%",
-                justifyContent: "center"
+                justifyContent: "center",
             }} >
             {
                 currentUser ? (
                     <SingleDayEventsComponent startDate={startDate} endDate={endDate} userId={currentUser.id} />
-                ) : <CircularProgress />
+                ) : <Stack sx={{
+                    minHeight: "50vh",
+                }}>
+                    <CircularProgress />
+                </Stack>
             }
         </Box>
     );

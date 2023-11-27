@@ -1,12 +1,13 @@
 'use client';
 
 import React from 'react'
-import { Box, Stack, Container, Card, CardHeader, Typography, CardContent, List, ListItem, ListItemText, Link, ListItemSecondaryAction, IconButton, SvgIcon } from '@mui/material';
+import { Box, Stack, Container, Card, CardHeader, Typography, CardContent, List, ListItem, ListItemText, Link, ListItemSecondaryAction, IconButton, SvgIcon, CircularProgress } from '@mui/material';
 import { CiTrash } from "react-icons/ci";
 import { format } from 'date-fns';
 import { useDeleteEventMutation, useGetEventsQuery } from '@/services/events';
 import { EventState } from '@/types/events';
 import toast from 'react-hot-toast';
+import { SeverityPill } from '../common/SeverityPill';
 
 type Props = {
     startDate: number;
@@ -53,7 +54,19 @@ const SingleDayEventsComponent = (props: Props) => {
                 <CardContent >
                     <List>
                         {
-                            isFetching ? <Typography>loading...</Typography> :
+                            isFetching ? <Stack
+                                direction="row"
+                                sx={{
+                                    width: "100%",
+                                    height: "100%",
+                                    minHeight: "50vh",
+
+                                    justifyContent: "center",
+                                    alignItems: "center"
+                                }}
+                            >
+                                <CircularProgress />
+                            </Stack> :
                                 data.data.length > 0 ? data.data.map((event: EventState) => {
                                     return (
                                         <ListItem
@@ -87,9 +100,9 @@ const SingleDayEventsComponent = (props: Props) => {
                                                             <Typography variant={"caption"}>
                                                                 To: {format(new Date(event.end), "yyyy-MM-dd HH:mm aa")}
                                                             </Typography>
-                                                            <Typography variant={"caption"}>
-                                                                All day: {event.allDay ? "Yes" : "No"}
-                                                            </Typography>
+                                                            <SeverityPill color={"primary"}>
+                                                                {event.allDay ? "All day" : ""}
+                                                            </SeverityPill>
 
                                                         </Stack>
                                                     </Stack>

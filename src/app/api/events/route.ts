@@ -195,20 +195,23 @@ export async function PUT(request: Request) {
 export async function DELETE(request: Request) {
   const { searchParams } = new URL(request.url);
   const id = searchParams.get("id");
-
+  const filePath = path.join(
+    process.cwd(),
+    "src",
+    "lib",
+    "data",
+    "events.json"
+  );
   try {
-    const FILE_DIRECTORY_PATH =
-      process.env.FILE_DIRECTORY_PATH || "./src/lib/data";
-    const eventsData = readFileSync(
-      `${FILE_DIRECTORY_PATH}/events.json`,
+
+    const eventsData = readFileSync(filePath,
       "utf8"
     );
     const events = JSON.parse(eventsData);
 
     const filteredEvents = events.filter((event: EventType) => event.id !== id);
 
-    await writeFileSync(
-      `${FILE_DIRECTORY_PATH}/events.json`,
+    await writeFileSync(filePath,
       JSON.stringify(filteredEvents, null, 2)
     );
 

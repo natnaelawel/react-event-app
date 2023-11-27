@@ -73,5 +73,29 @@
     "start": 1701032400000,
     "end": 1701118800000,
     "userId": "3290ad5f-f2e9-4aeb-aa6f-4e4e7e0b7b9e"
+  },
+  {
+    "id": "15a3e265-6598-4bf7-b1e4-ef1c474c9d5a",
+    "title": "New Event",
+    "allDay": false,
+    "start": 1700082000000,
+    "end": 1700168400000,
+    "userId": "3290ad5f-f2e9-4aeb-aa6f-4e4e7e0b7b9e"
+  },
+  {
+    "id": "37fac010-98b2-4e4b-bdda-770377166554",
+    "title": "new Event",
+    "allDay": false,
+    "start": 1699650000000,
+    "end": 1699736400000,
+    "userId": "3290ad5f-f2e9-4aeb-aa6f-4e4e7e0b7b9d"
+  },
+  {
+    "id": "0daf2611-b716-4423-a6bc-c5bf45097840",
+    "title": "Today's event",
+    "allDay": false,
+    "start": 1701032400000,
+    "end": 1701118800000,
+    "userId": "3290ad5f-f2e9-4aeb-aa6f-4e4e7e0b7b9d"
   }
 ]

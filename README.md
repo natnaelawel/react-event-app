@@ -10,7 +10,7 @@ The features of this app are:
   \*\* To view the month, week, and day view, click on the month, week, and day buttons on the top right corner of the calendar. and on a mobile device, or a smaller screen the view is automatically set to the day view.
 
 - Add events to a calendar
-  \*\* To add an event, click on the day you want to add an event to and fill out the form.
+  \*\* To add an event, click on the day you want to add an event to and fill out the form. and it has a color picker to choose the color of the event. 
 
   Note: On a mobile device, or a smaller screen, the add event hold the button down for 1 seconds and it will open the dialog box.
 
@@ -60,6 +60,7 @@ The events model is associated with the users model. The events model has a user
   \*\* start
   \*\* end
   \*\* allDay
+  \*\* color
   \*\* userId
 
 - Users
@@ -70,9 +71,9 @@ The events model is associated with the users model. The events model has a user
 
 ## Images
 
-![Calendar App](./calender-app.png)
-
-![Calendar App](./calendar-app-modal.png)
+![Calendar App](./app1.PNG)
+![Calendar App](./app2.PNG)
+![Calendar App](./app3.PNG)
 
 ## How to use
 

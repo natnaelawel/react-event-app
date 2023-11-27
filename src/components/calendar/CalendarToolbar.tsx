@@ -104,12 +104,12 @@ export const CalendarToolbar = (props: CalendarToolbarProps) => {
             {...other}
         >
             <Box
-                spacing={1}
                 width={{
                     xs: "100%",
                     md: "auto"
                 }}
                 sx={{
+                    gap: 1,
                     display: "flex",
                     justifyContent: "space-between",
                     xs: {

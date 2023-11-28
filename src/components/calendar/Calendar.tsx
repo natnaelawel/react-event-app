@@ -167,7 +167,6 @@ const CalendarComponent = ({ events }: Props) => {
 
     const eventContent = (arg: any) => {
         const timeText = format(arg.event.start, 'hh:mmaa',);
-        console.log(arg.event.color)
         return (
             <Stack
                 className="custom-event"
@@ -175,10 +174,9 @@ const CalendarComponent = ({ events }: Props) => {
                 alignItems={"center"}
                 flexWrap={"wrap"}
                 sx={{
-                    // backgroundColor: arg.event.color || theme.palette.primary.main,
                     color: "white",
                     borderRadius: "5px",
-                    padding: 1,
+                    padding: 0.5,
                     columnGap: 1,
                     overflow: "ellipsis",
                     height: arg.event.allDay ? "100%" : "auto",

@@ -194,13 +194,6 @@ export const EventModal = (props: Props) => {
 
     const router = useRouter();
 
-    const handleColorChange = useCallback(
-        (event: any) => {
-            formik.setFieldValue('color', event.target.value);
-        },
-        [formik]
-    );
-
     return (
         <Dialog
             fullWidth

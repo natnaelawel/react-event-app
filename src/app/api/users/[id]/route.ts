@@ -1,31 +1,16 @@
-import { readFileSync } from "fs";
-import path from "path";
-
-type UserType = {
-  id: string;
-  name: string;
-  email: string;
-};
+import dbConnect from "@/lib/dbConnect";
+import User from "@/lib/model/User";
 
 export async function GET(
   request: Request,
   { params: { id } }: { params: { id: string } }
 ) {
-  const filePath = path.join(process.cwd(), "src", "lib", "data", "users.json");
+  await dbConnect();
 
-  const usersData = await readFileSync(filePath, "utf8");
-  const users = JSON.parse(usersData);
+  const user = await User.findById(id);
 
-  const user = users.find((user: UserType) => user.id === id);
-  if (user) {
-    return Response.json({
-      status: 200,
-      data: user,
-    });
-  } else {
-    return Response.json({
-      status: 404,
-      data: "User not found",
-    });
-  }
+  return Response.json({
+    status: 200,
+    data: user,
+  });
 }

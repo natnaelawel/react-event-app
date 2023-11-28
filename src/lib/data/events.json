@@ -22,17 +22,17 @@
     "id": "0ad826cb-45eb-4cae-8a04-99afe67e4641",
     "title": "Lunch Meeting",
     "allDay": false,
-    "start": 1700082000000,
-    "end": 1700254800000,
+    "start": 1700686800000,
+    "end": 1700859600000,
     "userId": "3290ad5f-f2e9-4aeb-aa6f-4e4e7e0b7b9d",
-    "color": "#0db52e"
+    "color": "#121212"
   },
   {
     "id": "32debde3-5c8b-44ea-800b-9deabeabb768",
     "title": "Brunch Break",
     "allDay": false,
-    "start": 1700886600000,
-    "end": 1700893800000,
+    "start": 1699245000000,
+    "end": 1699252200000,
     "userId": "3290ad5f-f2e9-4aeb-aa6f-4e4e7e0b7b9d",
     "color": "#052648"
   }

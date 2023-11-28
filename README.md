@@ -1,6 +1,6 @@
 ## Calendar App - Next.js
 
-This is a calendar app made with React, NextJs, FullCalendar, Material UI, Redux toolkit, Formik, and other libraries. It is a simple, elegant calendar app that allows you to add events to a calendar and view them. It also allows you to edit and delete events. It also allows you to view events for a specific date range. It also allows you to drag and drop events and resize events. It also has a month, week, and day view.
+This is a calendar app made with React, NextJs, FullCalendar, Material UI, Redux toolkit, Formik, MongoDB, and other libraries. It is a simple, elegant calendar app that allows you to add events to a calendar and view them. It also allows you to edit and delete events. It also allows you to view events for a specific date range. It also allows you to drag and drop events and resize events. It also has a month, week, and day view.
 
 ## Features
 

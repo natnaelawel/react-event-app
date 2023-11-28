@@ -1,20 +1,8 @@
 import dbConnect from "@/lib/dbConnect";
 import Event from "@/lib/model/Event";
 
-type EventType = {
-  id: string;
-  title: string;
-  description?: string;
-  allDay: boolean;
-  start: number;
-  end: number;
-  userId: string;
-  color?: string;
-};
-
 export async function GET(request: Request) {
   await dbConnect();
-  
 
   const { searchParams } = new URL(request.url);
   const userId = searchParams.get("userId");
@@ -32,17 +20,12 @@ export async function GET(request: Request) {
 
   if (from && to && userId) {
     const eventsRes = await Event.find({
-      userId,
       $or: [
         {
           start: {
             $gte: parseInt(from),
-            $lte: parseInt(to),
           },
-        },
-        {
           end: {
-            $gte: parseInt(from),
             $lte: parseInt(to),
           },
         },
@@ -51,10 +34,19 @@ export async function GET(request: Request) {
             $lte: parseInt(from),
           },
           end: {
+            $gte: parseInt(from),
+          },
+        },
+        {
+          start: {
+            $lte: parseInt(to),
+          },
+          end: {
             $gte: parseInt(to),
           },
         },
       ],
+      userId,
     });
 
     return Response.json({
@@ -69,18 +61,22 @@ export async function GET(request: Request) {
         {
           start: {
             $gte: parseInt(from),
-            $lte: parseInt(to),
           },
-        },
-        {
           end: {
-            $gte: parseInt(from),
             $lte: parseInt(to),
           },
         },
         {
           start: {
             $lte: parseInt(from),
+          },
+          end: {
+            $gte: parseInt(from),
+          },
+        },
+        {
+          start: {
+            $lte: parseInt(to),
           },
           end: {
             $gte: parseInt(to),

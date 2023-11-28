@@ -15,7 +15,7 @@ const DateSpanPage = (props: Props) => {
     const [startDateStr, endDateStr] = pathname.split('/').slice(-1)[0].split('&');
 
     const startDate = new Date(startDateStr).getTime(); // start of the day
-    const endDate = new Date(new Date(endDateStr).getTime() + 24 * 60 * 60 * 1000 - 1).getTime(); // end of the day
+    const endDate = new Date(endDateStr).getTime(); // end of the day
 
     return (
         <Box

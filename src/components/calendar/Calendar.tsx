@@ -8,9 +8,9 @@ import interactionPlugin from '@fullcalendar/interaction';
 import listPlugin from '@fullcalendar/list';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import timelinePlugin from '@fullcalendar/timeline';
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { useAppDispatch } from "@/hooks/redux";
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { Badge, Box, Card, CardHeader, Container, Link, List, ListItem, ListItemText, Stack, Theme, Typography, useMediaQuery } from "@mui/material";
+import { Badge, Box, Card, Stack, Theme, Typography, useMediaQuery } from "@mui/material";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { CalendarStyleWrapper } from './CalendarStyleWrapper';
@@ -22,7 +22,6 @@ import { EventState } from '@/types/events';
 import { useUpdateEventMutation } from '@/services/events';
 import toast from 'react-hot-toast';
 import { format } from 'date-fns';
-import theme from '@/utils/theme';
 
 type Props = {
     events: EventState[];

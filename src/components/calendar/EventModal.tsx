@@ -222,7 +222,7 @@ export const EventModal = (props: Props) => {
 
                         <Button variant='contained' onClick={() => {
                             // onClose?.();
-                            router.push(`/calendar/${format(new Date(formik.values.start), "yyyy-MM-dd")}&${format(new Date(formik.values.end), "yyyy-MM-dd")}`);
+                            router.push(`/calendar/${format(new Date(range ? range.start : formik.values.start), "yyyy-MM-dd")}&${format(new Date(range ? range.end : formik.values.end), "yyyy-MM-dd")}`);
                         }}>
                             Go to events
                         </Button>
